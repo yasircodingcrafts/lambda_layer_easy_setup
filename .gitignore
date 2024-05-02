@@ -1,4 +1,5 @@
 .idea
 *.zip
 python
+.DS_Store
 example_unzip

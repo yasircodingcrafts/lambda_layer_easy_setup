@@ -1,4 +1,4 @@
-ZIP_FILE_NAME=python_numpy_layer.zip
+ZIP_FILE_NAME=python_lambda_layer.zip
 DOCKER_IMAGE_NAME=create-lambda-layer
 PYTHON_VERSION=3.9
 AWS_LAMBDA_IMAGE_NAME=public.ecr.aws/lambda/python:${PYTHON_VERSION}
@@ -19,7 +19,7 @@ zip_contents:
 	unzip -l ${PATH_TO_ZIP_FILE}
 
 archive:
-	cd ${LAYER_LOCATION} && zip -r9 ${ZIP_FILE_NAME} ./python -x "*/__pycache__/*" -x "*/tests/*"
+	cp essentials/* ${LAYER_LOCATION}/python && mv ${LAYER_LOCATION}/${PATH_TO_PACKAGES}/* ${LAYER_LOCATION}/python && cd ${LAYER_LOCATION} && rm -rf ./python/lib && zip -r9 ./${ZIP_FILE_NAME} ./python -x "*/__pycache__/*" -x "*/tests/*"
 
 unzip:
 	cd ${LAYER_LOCATION} && rm -rf ${UNZIP_LOCATION}  && mkdir ${UNZIP_LOCATION} && unzip ${ZIP_FILE_NAME} -d ${UNZIP_LOCATION}
